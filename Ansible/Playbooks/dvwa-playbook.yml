@@ -1,6 +1,6 @@
 ---
 - name: Config Web VM with Docker
-  hosts: webservers # Should match your ansible/hosts file's web VM group.
+  hosts: webservers # #TODO# Should match your ansible/hosts file's web VM group.
   become: true
   tasks:
     - name: docker.io

@@ -1,18 +1,18 @@
 ---
 - name: Install metric beat
-  hosts: webservers # Should match your ansible/hosts file's web VM group.
+  hosts: webservers # #TODO# Should match your ansible/hosts file's web VM group.
   become: true
   tasks:
 
-    # Check Elastic.co for most recent version.
+    # #TODO# Check Elastic.co for most recent version.
   - name: Download metricbeat
     command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.6.1-amd64.deb
 
-    # Should match the verion you downloaded above.
+    # #TODO# Should match the verion you downloaded above.
   - name: install metricbeat
     command: dpkg -i metricbeat-7.6.1-amd64.deb
 
-    # Make sure the src matches the location of your Metricbeat config file.
+    # #TODO# Make sure the src matches the location of your Metricbeat config file.
   - name: drop in metricbeat config
     copy:
       src: /etc/ansible/files/metricbeat-config.yml

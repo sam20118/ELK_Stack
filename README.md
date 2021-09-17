@@ -4,7 +4,7 @@ The files in this repository were used to configure the network depicted below.
 
 ![Network Diagram](Diagrams/NetworkDiagram.png)
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select Ansible/Playbooks files may be used to install only certain pieces of it, such as Filebeat.
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select Ansible/Playbooks files may be used to install only certain pieces of it, such as Filebeat.  I recommend going through each document searching for \#TODO\#, as these areas may be subject to change based on your particular set up.
 
   - Ansible/ansible.cfg
   - Ansible/hosts
@@ -51,8 +51,8 @@ The machines on the internal network are not exposed to the public Internet.
 Only the Jump-Box-Provisioner machine can accept connections from the Internet. Access to this machine is only allowed from your ELK machine's public IP address.
 
 Machines within the network can only be accessed by Jump-Box-Provisioner.
-- The Jump-Box-Provisioner is the only machine that can SSH into any of the other VM's in the two virtual networks.
-- My IP address can access the DVWA and Kibana sites on the over ports 80 and 5601 respectively.  My IP address cannot SSH into these machines directly.
+- The Jump-Box-Provisioner is the only machine that can SSH into any of the other machines in the two virtual networks.
+- Your IP address can access the DVWA and Kibana sites on the over ports 80 and 5601 respectively.  My IP address cannot SSH into these machines directly.
 
 A summary of the access policies in place can be found in the table below.
 
@@ -62,6 +62,12 @@ A summary of the access policies in place can be found in the table below.
 | Web-1                | No                  | 10.0.0.4,[your_ELK_Machine's_Public_IP] | 22,80   |
 | Web-2                | No                  | 10.0.0.4,[your_ELK_Machine's_Public_IP] | 22,80   |
 | ELKVM                | No                  | 10.0.0.4,[your_ELK_Machine's_Public_IP] | 22,5601 |
+
+Your network security group's rules should look something like the following screen shots.  Note that access is granted per IP address.  The censored areas in the in-bound rules sections represent the public IP address of the machine you plan to use to access the network.
+
+![Screenshot of ELKVM-nsg Network Security Group](Images/ELKVM-nsg.png)
+
+![Screenshot of Red_NSG Network Security Group](Images/Red_NSG.png.png)
 
 ### Elk Configuration
 
@@ -106,3 +112,33 @@ cd /etc/ansible
 curl -L -O https://raw.githubusercontent.com/sam20118/ELK_Stack/Ansible/Playbooks/elk-playbook.yml
 ansible-playbook elk-playbook.yml
 ```
+
+### Generating Logs
+
+After you have set everything up, you should generate some logs to verify that data is reaching your ELK machine from your Web machines.  You can do this by running the following files:
+- Scripts/WGET_Gen_Logs.sh
+- Scripts/SSH_Gen_Logs.sh
+
+Once you have generated some logs, try selecting the Logs tab on the left navigation bar.
+
+![Logs Button](Images/LogsIcon.png)
+
+Then try narrowing your search by enteringing *host.name:"Web-1" and event.dataset:system.auth* into the search bar.  You should see something like the following image.
+
+![Authentication Logs](Images/SSH_Logs.png)
+
+Now let's try looking at the metrics. Select the Metrics tab on the left navigation bar.
+
+![Metrics Button](Images/MetricsIcon.png)
+
+You will end up at a page like this.
+
+![Metrics Page](Images/Metrics_Page.png)
+
+Now select one of the boxes in the middle of the page, which represent your Web Machines, and select *View Metrics*.
+
+![Select a Web Machine](Images/View_Metrics.png)
+
+From this page you will be given information about your selected Web Machine's current resource usage.
+
+![See your Web Machine's current resource usage](Images/Machine_Metrics.png)

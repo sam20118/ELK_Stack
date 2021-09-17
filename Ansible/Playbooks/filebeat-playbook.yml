@@ -1,18 +1,18 @@
 ---
 - name: installing and launching filebeat
-  hosts: webservers # Should match your ansible/hosts file's web VM group.
+  hosts: webservers # #TODO# Should match your ansible/hosts file's web VM group.
   become: yes
   tasks:
 
-    # Check Elastic.co for most recent version.
+    # #TODO# Check Elastic.co for most recent version.
   - name: download filebeat deb
     command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-amd64.deb
 
-    # Should match the verion you downloaded above.
+    # #TODO# Should match the verion you downloaded above.
   - name: install filebeat deb
     command: dpkg -i filebeat-7.6.1-amd64.deb
 
-    # Make sure the src matches the location of your Filebeat config file.
+    # #TODO# Make sure the src matches the location of your Filebeat config file.
   - name: drop in filebeat.yml
     copy:
       src: /etc/ansible/files/filebeat-config.yml

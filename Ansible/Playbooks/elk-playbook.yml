@@ -1,6 +1,6 @@
 ---
 - name: Configure Elk VM with Docker
-  hosts: elk # Should match your ansible/hosts file's ELK VM group.
+  hosts: elk # #TODO# Should match your ansible/hosts file's ELK VM group.
   remote_user: ansibleadmin
   become: true
   tasks:
@@ -26,6 +26,7 @@
     - name: Increase virtual memory
       command: sysctl -w vm.max_map_count=262144
 
+      # Increase the available memory to ensure the ELK stack will work.
     - name: Use more memory
       sysctl:
         name: vm.max_map_count
