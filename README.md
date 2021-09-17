@@ -67,7 +67,7 @@ Your network security group's rules should look something like the following scr
 
 ![Screenshot of ELKVM-nsg Network Security Group](Images/ELKVM-nsg.png)
 
-![Screenshot of Red_NSG Network Security Group](Images/Red_NSG.png.png)
+![Screenshot of Red_NSG Network Security Group](Images/Red_NSG.png)
 
 ### Elk Configuration
 
